@@ -42,6 +42,13 @@ async function run() {
             res.send(service);
         });
 
+        // post add service
+        app.post('/services', async(req, res) => {
+            const service = req.body;
+            const result = await serviceCollection.insertOne(service);
+            res.send(result);
+        })
+
         //get reviews
         app.get('/reviews', async(req, res) => {
             const query = {};
@@ -57,10 +64,19 @@ async function run() {
             res.send(result);
         });
 
+        // delete reviews id
         app.delete('/reviews/:id', async(req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)}
+            const query = {_id: ObjectId(id)};
             const result = reviewCollection.deleteOne(query);
+            res.send(result);
+        });
+
+        // update reviews
+        app.put('/reviews/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const result = reviewCollection.updateOne(query);
             res.send(result);
         })
 
