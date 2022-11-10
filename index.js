@@ -59,6 +59,7 @@ async function run() {
         app.get('/services/limit', async(req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
+            console.log(cursor)
             const services = await cursor.limit(3).toArray();
             res.send(services);
         });
@@ -95,7 +96,7 @@ async function run() {
         });
 
         // get reviews id
-        app.get('/reviews/:id', verifyJWT, async(req, res) => {
+        app.get('/reviews/:id', async(req, res) => {
             const id = req.params.id;
             const query = {_id: ObjectId(id)};
             const review = await reviewCollection.findOne(query);
@@ -110,7 +111,7 @@ async function run() {
         });
 
         // delete reviews id
-        app.delete('/reviews/:id', verifyJWT, async(req, res) => {
+        app.delete('/reviews/:id', async(req, res) => {
             const id = req.params.id;
             const query = {_id: ObjectId(id)};
             const result = reviewCollection.deleteOne(query);
@@ -118,7 +119,7 @@ async function run() {
         });
 
         // update reviews
-        app.put('/reviews/:id', verifyJWT, async(req, res) => {
+        app.put('/reviews/:id', async(req, res) => {
             const id = req.params.id;
             const filter = {_id: ObjectId(id)};
             const review = req.body;
