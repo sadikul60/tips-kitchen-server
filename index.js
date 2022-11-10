@@ -59,9 +59,8 @@ async function run() {
         app.get('/services/limit', async(req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
-            console.log(cursor)
             const services = await cursor.limit(3).toArray();
-            res.send(services);
+            res.send(services.sort().reverse());
         });
 
         // get data with limit and skip method
@@ -92,7 +91,7 @@ async function run() {
             const query = {};
             const cursor = reviewCollection.find(query);
             const reviews = await cursor.toArray();
-            res.send(reviews);
+            res.send(reviews.sort().reverse());
         });
 
         // get reviews id
