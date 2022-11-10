@@ -60,16 +60,9 @@ async function run() {
             const query = {};
             const cursor = serviceCollection.find(query);
             const services = await cursor.limit(3).toArray();
-            res.send(services.sort().reverse());
-        });
-
-        // get data with limit and skip method
-        app.get('/services/new-add', async(req, res) => {
-            const query = {};
-            const cursor = serviceCollection.find(query);
-            const services = await cursor.skip(6).toArray();
             res.send(services);
         });
+
 
         // get service id
         app.get('/services/:id', async(req, res) => {
